@@ -1,10 +1,16 @@
 const CIVIC_SEARCH_URL = 'https://www.googleapis.com/civicinfo/v2/voterinfo';
 
 function getDataFromApi(searchTerm, callback) {
+	console.log('API query performed');
 	const query = {
-		address: `${searchTerm}`,
-		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U'
+		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U',
+		address: `${searchTerm}`
 	}
+	$.getJSON(CIVIC_SEARCH_URL, query, callback);
+}
+
+function displayGoogleVoterInfoResults(data) {
+	console.log(data);
 }
 
 function watchSubmit() {
@@ -23,12 +29,13 @@ function watchSubmit() {
 		const zipTarget = $(event.currentTarget).find('#zip');
 		const zip = zipTarget.val();
 		console.log(zip);
-		const address = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
-		console.log(address);
+		const query = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
+		console.log(query);
 		streetAddressTarget.val('');
 		cityTarget.val('');
 		stateTarget.val('Alabama');
 		zipTarget.val('');
+		getDataFromApi(query, displayGoogleVoterInfoResults);
 	});
 }
 
