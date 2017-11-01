@@ -1,3 +1,7 @@
 body {
 	box-sizing: border-box;
 }
+
+#address-form input, #address-form label {
+	display: block;
+}
