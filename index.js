@@ -25,10 +25,10 @@ function watchSubmit() {
 		console.log(zip);
 		const address = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
 		console.log(address);
-		//streetAddress.val('');
-		//cityTarget.val('');
-		//stateTarget.val('');
-		//zipTarget.val('');
+		streetAddressTarget.val('');
+		cityTarget.val('');
+		stateTarget.val('Alabama');
+		zipTarget.val('');
 	});
 }
 
