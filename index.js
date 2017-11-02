@@ -29,13 +29,13 @@ function watchSubmit() {
 		const zipTarget = $(event.currentTarget).find('#zip');
 		const zip = zipTarget.val();
 		console.log(zip);
-		const query = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
-		console.log(query);
+		const address = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
+		console.log(address);
 		streetAddressTarget.val('');
 		cityTarget.val('');
 		stateTarget.val('Alabama');
 		zipTarget.val('');
-		getDataFromApi(query, displayGoogleVoterInfoResults);
+		getDataFromApi(address, displayGoogleVoterInfoResults);
 	});
 }
 
