@@ -1,7 +1,13 @@
-body {
+html, body, main {
 	box-sizing: border-box;
+	padding: 0;
+	height: 100%;
 }
 
 #address-form input, #address-form label {
 	display: block;
+}
+
+#map {
+	height: 100%;
 }

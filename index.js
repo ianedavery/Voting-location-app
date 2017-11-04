@@ -19,6 +19,16 @@ function getDataFromCivicApi(searchTerm, callback) {
 	$.getJSON(CIVIC_SEARCH_URL, query, callback);
 }
 
+function initMap(latitude, longitude) {
+	let map = new google.maps.Map(document.getElementById('map'), {
+		center: {
+			lat: latitude, lng: longitude
+		},
+		zoom: 17
+	});
+}
+
+
 function displayGoogleVoterInfoResults(data) {
 	console.log(data);
 	console.log('display function ran');
@@ -28,16 +38,18 @@ function displayGoogleVoterInfoResults(data) {
 		locationArray.push(data.pollingLocations[i].address.line1 + '\ ' + data.pollingLocations[i].address.city + '\ ' + data.pollingLocations[i].address.state + '\ ' + data.pollingLocations[i].address.zip);
 	}
 	console.log(locationArray);
-	const coordinatesArray = [];
-	for(let i = 0; i < locations.length; i++) {
-		getDataFromGeocodingApi(locationArray[i], displayCoordinateResults);
-	}
+	locationArray.map(item => {
+		getDataFromGeocodingApi(item, displayCoordinateResults);
+	});
 }
 
 function displayCoordinateResults(data) {
-	const coordinatesArray = [(data.results[0].geometry.location.lat + '\ ' + data.results[0].geometry.location.lng)];
-	console.log(coordinatesArray);
+	//console.log(data.results[0].geometry.location.lat);
+	latitude = data.results[0].geometry.location.lat;
+	longitude = data.results[0].geometry.location.lng;
+	initMap(latitude, longitude);
 }
+
 
 function watchSubmit() {
 	$('#address-form').submit(event => {
@@ -45,16 +57,12 @@ function watchSubmit() {
 		console.log('enter button clicked');
 		const streetAddressTarget = $(event.currentTarget).find('#street-address');
 		const streetAddress = streetAddressTarget.val();
-		console.log(streetAddress);
 		const cityTarget = $(event.currentTarget).find('#city');
 		const city = cityTarget.val();
-		console.log(city);
 		const stateTarget = $(event.currentTarget).find('#state');
 		const state = stateTarget.val();
-		console.log(state);
 		const zipTarget = $(event.currentTarget).find('#zip');
 		const zip = zipTarget.val();
-		console.log(zip);
 		const address = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
 		console.log(address);
 		streetAddressTarget.val('');
