@@ -20,12 +20,18 @@ function getDataFromCivicApi(searchTerm, callback) {
 }
 
 function initMap(latitude, longitude) {
+	let myLatLng = {lat: latitude, lng: longitude};
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: {
 			lat: latitude, lng: longitude
 		},
 		zoom: 17
 	});
+	let marker = new google.maps.Marker({
+        map: map,
+        position: myLatLng,
+        title: 'Hello World!'
+    });
 }
 
 
