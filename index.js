@@ -19,12 +19,9 @@ function getDataFromCivicApi(searchTerm, callback) {
 	$.getJSON(CIVIC_SEARCH_URL, query, callback);
 }
 
-function renderPollingLocationInfo(locationName) {
-	return '<stong>' + locationName + '<strong>';
-}
-
-function initMap(x, y, z) {
+function initMap(latitude, longitude, address) {
 	let myLatLng = {lat: latitude, lng: longitude};
+	console.log(myLatLng);
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng,
 		zoom: 17
@@ -37,7 +34,7 @@ function initMap(x, y, z) {
     let infowindow = new google.maps.InfoWindow({});
     google.maps.event.addListener(marker, 'click', (function (marker) {
 		return function () {
-			infowindow.setContent(address);
+			infowindow.setContent(`<a href="https://www.google.com/maps/place/${address}">Directions</a>`);
 			infowindow.open(map, marker);
 		}
 	})(marker));
@@ -59,10 +56,10 @@ function displayGoogleVoterInfoResults(data) {
 }
 
 function displayCoordinateResults(data) {
-	console.log(data.results[0].formatted_address);
 	latitude = data.results[0].geometry.location.lat;
 	longitude = data.results[0].geometry.location.lng;
 	address = data.results[0].formatted_address;
+	console.log(address);
 	initMap(latitude, longitude, address);
 }
 
@@ -90,4 +87,3 @@ function watchSubmit() {
 }
 
 $(watchSubmit);
-
