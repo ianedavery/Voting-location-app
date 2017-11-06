@@ -20,6 +20,20 @@ function getDataFromCivicApi(searchTerm, callback) {
 	$.getJSON(CIVIC_SEARCH_URL, query, callback);
 }
 
+function renderSearchForm() {
+	$('#go-back').addClass('hidden');
+	$('#map').addClass('hidden');
+	$('#address-form').removeClass('hidden');
+}
+
+function handleSearchAnotherAddressClicks() {
+	$('#go-back').on('click', event => {
+		console.log('go back button clicked');
+		resultsArray = [];
+		renderSearchForm();
+	});
+}
+
 function initMap(latitude, longitude, address, longAddress) {
 	//let myLatLng = [{lat: 37.541644, lng: -77.433904}, {lat: 37.543269, lng: -77.436210}];
 	//let myLatLng = {lat: latitude, lng: longitude};
@@ -99,6 +113,7 @@ function renderMap() {
 	console.log('map rendering');
 	$('#address-form').addClass("hidden");
 	$('#map').removeClass("hidden");
+	$('#go-back').removeClass('hidden');
 }
 
 function watchSubmit() {
@@ -126,3 +141,4 @@ function watchSubmit() {
 }
 
 $(watchSubmit);
+$(handleSearchAnotherAddressClicks);
