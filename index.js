@@ -62,6 +62,7 @@ function initMap() {
 }
 
 function displayGoogleVoterInfoResults(data) {
+	console.log('displayGoogleVoterInfoResults ran');
 	let locations = data.pollingLocations;
 	let locationArray = [];
 	for(let i = 0; i < locations.length; i++) {
