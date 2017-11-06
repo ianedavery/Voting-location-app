@@ -21,6 +21,7 @@ function getDataFromCivicApi(searchTerm, callback) {
 	}
 	$.getJSON(CIVIC_SEARCH_URL, query, callback);
 }
+	
 
 function renderSearchForm() {
 	$('#go-back').addClass('hidden');
@@ -37,7 +38,7 @@ function handleSearchAnotherAddressClicks() {
 	});
 }
 
-function initMap() {
+function initMap1() {
 	let myLatLng = coordinatesArray;
 	let longAddress = longAddressArray;
 	let formattedAddress = formattedAddressArray;
@@ -63,13 +64,13 @@ function initMap() {
 
 function displayGoogleVoterInfoResults(data) {
 	console.log('displayGoogleVoterInfoResults ran');
-	let locations = data.pollingLocations;
-	let locationArray = [];
-	for(let i = 0; i < locations.length; i++) {
-		locationArray.push(data.pollingLocations[i].address.line1 + '\ ' + data.pollingLocations[i].address.city + '\ ' + data.pollingLocations[i].address.state + '\ ' + data.pollingLocations[i].address.zip);
+	let pollingLocations = data.pollingLocations;
+	let pollingLocationsArray = [];
+	for(let i = 0; i < pollingLocations.length; i++) {
+		pollingLocationsArray.push(data.pollingLocations[i].address.line1 + '\ ' + data.pollingLocations[i].address.city + '\ ' + data.pollingLocations[i].address.state + '\ ' + data.pollingLocations[i].address.zip);
 	}
 	let coordinatesArray = [];
-	locationArray.map(item => {
+	pollingLocationsArray.map(item => {
 		getDataFromGeocodingApi(item, displayCoordinateResults);
 	});
 }
@@ -78,7 +79,7 @@ function displayCoordinateResults(data) {
 	coordinatesArray.push({lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng});
 	longAddressArray.push(data.results[0].address_components[0].long_name + '\ ' + data.results[0].address_components[1].short_name);
 	formattedAddressArray.push(data.results[0].formatted_address);
-	initMap();
+	initMap1();
 }
 
 function renderMap() {
