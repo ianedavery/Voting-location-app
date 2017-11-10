@@ -17,3 +17,12 @@ html, body, main {
 	display: none;
 }
 
+.hide-map {
+	visibility: hidden;
+}
+
+/*.officials-containers {
+	border: 1px solid black;
+	background: aqua;
+}*/
+

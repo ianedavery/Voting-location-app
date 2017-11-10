@@ -4,7 +4,9 @@ const GEOCODING_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 let coordinatesArray = [];
 let longAddressArray = [];
 let formattedAddressArray = [];
+let myLatLng;
 let representativeResults;
+let address;
 
 function getDataFromGeocodingApi(searchTerm, callback) {
 	console.log('Geocoding API queried');
@@ -35,7 +37,7 @@ function getDataFromCivicRepresentativeApi(searchTerm, callback) {
 
 function renderSearchForm() {
 	$('#go-back').addClass('hidden');
-	$('#map').addClass('hidden');
+	$('#map').addClass('hide-map');
 	$('#address-form').removeClass('hidden');
 }
 
@@ -44,7 +46,9 @@ function handleSearchAnotherAddressClicks() {
 		coordinatesArray = [];
 		longAddressArray = [];
 		formattedAddressArray = [];
+		myLatLng = undefined;
 		representativeResults = undefined;
+		address = undefined;
 		renderSearchForm();
 		$('#representatives').addClass('hidden');
 		$('#polling-sites').addClass('hidden');
@@ -52,10 +56,13 @@ function handleSearchAnotherAddressClicks() {
 	});
 }
 
-function initMap1() {
-	let myLatLng = coordinatesArray;
+function initMap() {
+	myLatLng = coordinatesArray;
+	console.log(coordinatesArray);
 	let longAddress = longAddressArray;
+	console.log(longAddress);
 	let formattedAddress = formattedAddressArray;
+	console.log(formattedAddress);
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng[0],
 		zoom: 8
@@ -87,8 +94,10 @@ function displayRepresentativeResults(data) {
 		for(let i=0; i<myArray.length; i++){
 			arrayIndex = myArray[i];
 			representativeResults = `
-				<h2>${officesArray}</h2>
-					<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
+				<div class='officials-containers'>
+					<h2>${officesArray}</h2>
+						<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
+				</div>
 			`;
 			$('#representatives-list').append(representativeResults);
 		}
@@ -102,7 +111,6 @@ function displayGoogleVoterInfoResults(data) {
 	for(let i = 0; i < pollingLocations.length; i++) {
 		pollingLocationsArray.push(data.pollingLocations[i].address.line1 + '\ ' + data.pollingLocations[i].address.city + '\ ' + data.pollingLocations[i].address.state + '\ ' + data.pollingLocations[i].address.zip);
 	}
-	let coordinatesArray = [];
 	pollingLocationsArray.map(item => {
 		getDataFromGeocodingApi(item, displayCoordinateResults);
 	});
@@ -112,29 +120,29 @@ function displayCoordinateResults(data) {
 	coordinatesArray.push({lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng});
 	longAddressArray.push(data.results[0].address_components[0].long_name + '\ ' + data.results[0].address_components[1].short_name);
 	formattedAddressArray.push(data.results[0].formatted_address);
-	initMap1();
+	initMap();
 }
 
 function renderMap() {
-	$('#map').removeClass('hidden');
+	$('#map').removeClass('hide-map');
 	$('#representatives-list').addClass('hidden');
 }
 
 function handleYourRepresentativesClicks() {
+	console.log(representativeResults);
 	$('#representatives').on('click', event => {
-		console.log(representativeResults);
 		if(representativeResults == undefined) {
 			alert('Sorry. I don\'t have any information based on the addressed you entered.');
 		}
 		else {
 			renderRepresentativesList();
-		}
+		}	
 	});
 }
 
 function handleViewPollingLocationClicks() {
 	$('#polling-sites').on('click', event => {
-		if(coordinatesArray){
+		if(myLatLng == undefined){
 			alert('Sorry. I currently don\'t have any information on elections in your area.');
 		}
 		else {
@@ -157,18 +165,18 @@ function watchSubmit() {
 		event.preventDefault();
 		console.log('enter button clicked');
 		let streetAddressTarget = $(event.currentTarget).find('#street-address');
-		 streetAddress = streetAddressTarget.val();
+		let streetAddress = streetAddressTarget.val();
 		let cityTarget = $(event.currentTarget).find('#city');
 		let city = cityTarget.val();
 		let stateTarget = $(event.currentTarget).find('#state');
 		let state = stateTarget.val();
-		let address = streetAddress + '\ ' + city + '\ ' + state;
+		address = streetAddress + '\ ' + city + '\ ' + state;
+		console.log(address);
 		streetAddressTarget.val('');
 		cityTarget.val('');
 		stateTarget.val('');
 		getDataFromCivicApi(address, displayGoogleVoterInfoResults);
 		getDataFromCivicRepresentativeApi(address, displayRepresentativeResults);
-		address = undefined;
 		renderSearchOptions();
 	});
 }
