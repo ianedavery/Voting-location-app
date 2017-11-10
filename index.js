@@ -4,6 +4,7 @@ const GEOCODING_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 let coordinatesArray = [];
 let longAddressArray = [];
 let formattedAddressArray = [];
+let representativeResults;
 
 function getDataFromGeocodingApi(searchTerm, callback) {
 	console.log('Geocoding API queried');
@@ -43,6 +44,7 @@ function handleSearchAnotherAddressClicks() {
 		coordinatesArray = [];
 		longAddressArray = [];
 		formattedAddressArray = [];
+		representativeResults = undefined;
 		renderSearchForm();
 		$('#representatives').addClass('hidden');
 		$('#polling-sites').addClass('hidden');
@@ -75,9 +77,7 @@ function initMap1() {
 }
 
 function renderRepresentativesList() {
-	$('#representatives').on('click', event => {
 		$('#representatives-list').removeClass('hidden');
-	})
 }
 
 function displayRepresentativeResults(data) {
@@ -86,8 +86,11 @@ function displayRepresentativeResults(data) {
 		let myArray = data.offices[i].officialIndices;
 		for(let i=0; i<myArray.length; i++){
 			arrayIndex = myArray[i];
-			let results = `<p>${officesArray}</br>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>`;
-			$('#representatives-list').append(results);
+			representativeResults = `
+				<h2>${officesArray}</h2>
+					<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
+			`;
+			$('#representatives-list').append(representativeResults);
 		}
 	}
 }
@@ -114,6 +117,19 @@ function displayCoordinateResults(data) {
 
 function renderMap() {
 	$('#map').removeClass('hidden');
+	$('#representatives-list').addClass('hidden');
+}
+
+function handleYourRepresentativesClicks() {
+	$('#representatives').on('click', event => {
+		console.log(representativeResults);
+		if(representativeResults == undefined) {
+			alert('Sorry. I don\'t have any information based on the addressed you entered.');
+		}
+		else {
+			renderRepresentativesList();
+		}
+	});
 }
 
 function handleViewPollingLocationClicks() {
@@ -133,6 +149,7 @@ function renderSearchOptions() {
 	$('#go-back').removeClass('hidden');
 	$('#representatives').removeClass('hidden');
 	$('#polling-sites').removeClass('hidden');
+	$('#representatives-list').addClass('hidden');
 }
 
 function watchSubmit() {
@@ -152,11 +169,11 @@ function watchSubmit() {
 		getDataFromCivicApi(address, displayGoogleVoterInfoResults);
 		getDataFromCivicRepresentativeApi(address, displayRepresentativeResults);
 		address = undefined;
-		renderSearchOptions();	
+		renderSearchOptions();
 	});
 }
 
 $(watchSubmit);
 $(handleSearchAnotherAddressClicks);
 $(handleViewPollingLocationClicks);
-$(renderRepresentativesList);
+$(handleYourRepresentativesClicks);
