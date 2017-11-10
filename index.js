@@ -46,6 +46,7 @@ function handleSearchAnotherAddressClicks() {
 		renderSearchForm();
 		$('#representatives').addClass('hidden');
 		$('#polling-sites').addClass('hidden');
+		$('#representatives-list').empty();
 	});
 }
 
@@ -73,13 +74,20 @@ function initMap1() {
 	}
 }
 
+function renderRepresentativesList() {
+	$('#representatives').on('click', event => {
+		$('#representatives-list').removeClass('hidden');
+	})
+}
+
 function displayRepresentativeResults(data) {
 	for(let i=0; i<data.offices.length; i++){
 		let officesArray = data.offices[i].name;
 		let myArray = data.offices[i].officialIndices;
 		for(let i=0; i<myArray.length; i++){
 			arrayIndex = myArray[i];
-			console.log(officesArray + ': ' + data.officials[arrayIndex].name);
+			let results = `<p>${officesArray}</br>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>`;
+			$('#representatives-list').append(results);
 		}
 	}
 }
@@ -102,6 +110,21 @@ function displayCoordinateResults(data) {
 	longAddressArray.push(data.results[0].address_components[0].long_name + '\ ' + data.results[0].address_components[1].short_name);
 	formattedAddressArray.push(data.results[0].formatted_address);
 	initMap1();
+}
+
+function renderMap() {
+	$('#map').removeClass('hidden');
+}
+
+function handleViewPollingLocationClicks() {
+	$('#polling-sites').on('click', event => {
+		if(coordinatesArray){
+			alert('Sorry. I currently don\'t have any information on elections in your area.');
+		}
+		else {
+			renderMap();
+		}
+	});
 }
 
 function renderSearchOptions() {
@@ -135,3 +158,5 @@ function watchSubmit() {
 
 $(watchSubmit);
 $(handleSearchAnotherAddressClicks);
+$(handleViewPollingLocationClicks);
+$(renderRepresentativesList);
