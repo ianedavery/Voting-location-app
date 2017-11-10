@@ -1,8 +1,10 @@
 const CIVIC_SEARCH_URL = 'https://www.googleapis.com/civicinfo/v2/voterinfo';
+const REPRESENTATIVES_SEARCH_URL = 'https://www.googleapis.com/civicinfo/v2/representatives';
 const GEOCODING_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 let coordinatesArray = [];
 let longAddressArray = [];
 let formattedAddressArray = [];
+let representativeResults;
 
 function getDataFromGeocodingApi(searchTerm, callback) {
 	console.log('Geocoding API queried');
@@ -21,7 +23,15 @@ function getDataFromCivicApi(searchTerm, callback) {
 	}
 	$.getJSON(CIVIC_SEARCH_URL, query, callback);
 }
-	
+
+function getDataFromCivicRepresentativeApi(searchTerm, callback) {
+	console.log('Civic API query performed');
+	const query = {
+		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U',
+		address: `${searchTerm}`
+	}
+	$.getJSON(REPRESENTATIVES_SEARCH_URL, query, callback);
+}	
 
 function renderSearchForm() {
 	$('#go-back').addClass('hidden');
@@ -34,7 +44,11 @@ function handleSearchAnotherAddressClicks() {
 		coordinatesArray = [];
 		longAddressArray = [];
 		formattedAddressArray = [];
+		representativeResults = undefined;
 		renderSearchForm();
+		$('#representatives').addClass('hidden');
+		$('#polling-sites').addClass('hidden');
+		$('#representatives-list').empty();
 	});
 }
 
@@ -62,6 +76,25 @@ function initMap1() {
 	}
 }
 
+function renderRepresentativesList() {
+		$('#representatives-list').removeClass('hidden');
+}
+
+function displayRepresentativeResults(data) {
+	for(let i=0; i<data.offices.length; i++){
+		let officesArray = data.offices[i].name;
+		let myArray = data.offices[i].officialIndices;
+		for(let i=0; i<myArray.length; i++){
+			arrayIndex = myArray[i];
+			representativeResults = `
+				<h2>${officesArray}</h2>
+					<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
+			`;
+			$('#representatives-list').append(representativeResults);
+		}
+	}
+}
+
 function displayGoogleVoterInfoResults(data) {
 	console.log('displayGoogleVoterInfoResults ran');
 	let pollingLocations = data.pollingLocations;
@@ -83,10 +116,40 @@ function displayCoordinateResults(data) {
 }
 
 function renderMap() {
-	console.log('map rendering');
+	$('#map').removeClass('hidden');
+	$('#representatives-list').addClass('hidden');
+}
+
+function handleYourRepresentativesClicks() {
+	$('#representatives').on('click', event => {
+		console.log(representativeResults);
+		if(representativeResults == undefined) {
+			alert('Sorry. I don\'t have any information based on the addressed you entered.');
+		}
+		else {
+			renderRepresentativesList();
+		}
+	});
+}
+
+function handleViewPollingLocationClicks() {
+	$('#polling-sites').on('click', event => {
+		if(coordinatesArray){
+			alert('Sorry. I currently don\'t have any information on elections in your area.');
+		}
+		else {
+			renderMap();
+		}
+	});
+}
+
+function renderSearchOptions() {
+	console.log('rendering search options');
 	$('#address-form').addClass("hidden");
-	$('#map').removeClass("hidden");
 	$('#go-back').removeClass('hidden');
+	$('#representatives').removeClass('hidden');
+	$('#polling-sites').removeClass('hidden');
+	$('#representatives-list').addClass('hidden');
 }
 
 function watchSubmit() {
@@ -99,18 +162,18 @@ function watchSubmit() {
 		let city = cityTarget.val();
 		let stateTarget = $(event.currentTarget).find('#state');
 		let state = stateTarget.val();
-		let zipTarget = $(event.currentTarget).find('#zip');
-		let zip = zipTarget.val();
-		let address = streetAddress + '\ ' + city + '\ ' + state + '\ ' + zip;
+		let address = streetAddress + '\ ' + city + '\ ' + state;
 		streetAddressTarget.val('');
 		cityTarget.val('');
 		stateTarget.val('');
-		zipTarget.val('');
 		getDataFromCivicApi(address, displayGoogleVoterInfoResults);
+		getDataFromCivicRepresentativeApi(address, displayRepresentativeResults);
 		address = undefined;
-		renderMap();	
+		renderSearchOptions();
 	});
 }
 
 $(watchSubmit);
 $(handleSearchAnotherAddressClicks);
+$(handleViewPollingLocationClicks);
+$(handleYourRepresentativesClicks);
