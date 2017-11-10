@@ -75,19 +75,15 @@
 					<option value="WY">Wyoming</option>
 				</select>
 
-				<label for='zip'>Zip</label>
-				<input type='text' name='zip' placeholder='20500' id='zip' pattern='(\d{5}([\-]\d{4})?)'>
-
 			</fieldset>
-			<button type='submit' id='polling-sites'>Search Polling Locations</button>
-			<button type='submit' id='early-sites'>Search Early Voting Locations</button>
-			<button type='submit' id='dropoff-sites'>Search Ballot Drop-off Locations</button>
+			<button type='submit' id='search'>Search</button>
 		</form>
 
+		<button id='representatives' class='hidden'>Your Representatives</button>
+		<button id='polling-sites' class='hidden'>View your polling locations</button>
+		<button id='go-back' class='hidden'>Search another address</button>
 		
 		<div id='map' class='hidden'>map</div>
-
-		<button id='go-back' class='hidden'>Search Another Address</button>
 
 	</main>
 
