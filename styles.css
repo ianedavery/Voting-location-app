@@ -10,7 +10,7 @@ html, body, main {
 
 #map {
 	height: 400px;
-	width: 400px;
+	width: 800px;
 }
 
 .hidden {
@@ -18,11 +18,18 @@ html, body, main {
 }
 
 .hide-map {
-	visibility: hidden;
+	position: relative;
+	left: -999px;
 }
 
-/*.officials-containers {
+#representatives-list {
+	position: relative;
+	top: -400px;
+}
+
+.officials-containers {
 	border: 1px solid black;
 	background: aqua;
-}*/
+}
+
 

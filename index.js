@@ -65,7 +65,7 @@ function initMap() {
 	console.log(formattedAddress);
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng[0],
-		zoom: 8
+		zoom: 12
 	});
 	let marker;
 	let infowindow = new google.maps.InfoWindow({});
@@ -81,10 +81,6 @@ function initMap() {
 			}
 		})(marker));
 	}
-}
-
-function renderRepresentativesList() {
-		$('#representatives-list').removeClass('hidden');
 }
 
 function displayRepresentativeResults(data) {
@@ -126,6 +122,11 @@ function displayCoordinateResults(data) {
 function renderMap() {
 	$('#map').removeClass('hide-map');
 	$('#representatives-list').addClass('hidden');
+}
+
+function renderRepresentativesList() {
+		$('#representatives-list').removeClass('hidden');
+		$('#map').addClass('hide-map');
 }
 
 function handleYourRepresentativesClicks() {
