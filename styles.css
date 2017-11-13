@@ -12,8 +12,8 @@ html, body, main {
 
 body {
 	background-image: url('https://s-media-cache-ak0.pinimg.com/originals/ea/80/26/ea802617b2d44fa67988c4b39b903664.jpg');
-	background-position: center; 
-	/*background-color: #FFFFED;*/
+	background-position: center;
+	background-color: #FFFFED;
 }
 
 h1 {
@@ -28,7 +28,7 @@ h1 {
 	border: 1px solid #006CB2;
 	border-radius: 5%;
 	width: 75%;
-	height: 850px;
+	height: 920px;
 	margin-right: auto;
 	margin-left: auto;
 	background-color: #1483CC;
@@ -60,10 +60,12 @@ legend {
 }
 
 #address-form input, select {
-	font-size: 40px;
+	font-size: 45px;
 	font-family: 'Cabin', sans-serif;
 	border: 1px solid #006CB2;
 	padding-left: 5px;
+	height: 80px;
+	width: 550px;
 }
 
 #search {
@@ -71,6 +73,8 @@ legend {
 	margin: 45px auto 0 auto;
 	font-size: 40px;
 	border: 1px solid #006CB2;
+	height: 80px;
+	width: 165px;
 }
 
 fieldset {
@@ -102,7 +106,9 @@ fieldset {
 	margin: 20px;
 }
 
-/*#address-form {
+
+
+/*main #address-form {
 	border: 1px solid #006CB2;
 	border-radius: 5%;
 	width: 45%;
@@ -112,14 +118,14 @@ fieldset {
 	background-color: #1483CC;
 }
 
-h1 {
+main h1 {
 	margin-right: auto;
 	margin-left: auto;
 	text-align: center;
 	font-size: 50px;
 }
 
-legend {
+fieldset legend {
 	text-align: center;
 	padding: 25px 0 5px 0;
 	font-size: 30px;
@@ -144,3 +150,5 @@ legend {
 	font-size: 20px;
 	border: 1px solid #006CB2;
 }*/
+
+
