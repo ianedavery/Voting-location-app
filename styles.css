@@ -35,9 +35,9 @@ h1 {
 }
 
 .shadow {
-  -webkit-box-shadow: 4px 4px 1px 6px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow:    4px 4px 1px 6px rgba(0, 0, 0, 0.4);
-  box-shadow:         4px 4px 1px 6px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 4px 5px 1px 7px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow:    4px 5px 1px 7px rgba(0, 0, 0, 0.4);
+  box-shadow:         4px 5px 1px 7px rgba(0, 0, 0, 0.4);
 }
 
 legend {
@@ -56,16 +56,17 @@ legend {
 #address-form label {
 	font-size: 45px;
 	margin-top: 15px;
-	margin-bottom: 5px;
+	margin-bottom: 9px;
+	width: 80%;
 }
 
 #address-form input, select {
 	font-size: 45px;
 	font-family: 'Cabin', sans-serif;
 	border: 1px solid #006CB2;
-	padding-left: 5px;
+	padding-left: 10px;
 	height: 80px;
-	width: 550px;
+	width: 80%;
 }
 
 #search {
@@ -106,49 +107,54 @@ fieldset {
 	margin: 20px;
 }
 
+@media only screen and (min-width: 768px) {
+	main #address-form {
+		border: 1px solid #006CB2;
+		border-radius: 5%;
+		width: 45%;
+		height: 450px;
+		margin-right: auto;
+		margin-left: auto;
+		background-color: #1483CC;
+	}
 
+	main h1 {
+		margin-right: auto;
+		margin-left: auto;
+		margin-top: 33.5px;
+		text-align: center;
+		font-size: 50px;
+	}
 
-/*main #address-form {
-	border: 1px solid #006CB2;
-	border-radius: 5%;
-	width: 45%;
-	height: 500px;
-	margin-right: auto;
-	margin-left: auto;
-	background-color: #1483CC;
+	fieldset legend {
+		text-align: center;
+		padding: 25px 0 5px 0;
+		font-size: 30px;
+	}
+
+	main #address-form label {
+		font-size: 24px;
+		margin-top: 15px;
+		margin-bottom: 5px;
+		width: 75%;
+	}
+
+	main #address-form input, fieldset select {
+		font-size: 20px;
+		height: 30px;
+		width: 75%;
+		font-family: 'Cabin', sans-serif;
+		border: 1px solid #006CB2;
+		padding-left: 5px;
+	}
+
+	form #search {
+		display: block;
+		height: 30px;
+		width: 80px;
+		margin: 20px auto 0 auto;
+		font-size: 20px;
+		border: 1px solid #006CB2;
+	}
 }
-
-main h1 {
-	margin-right: auto;
-	margin-left: auto;
-	text-align: center;
-	font-size: 50px;
-}
-
-fieldset legend {
-	text-align: center;
-	padding: 25px 0 5px 0;
-	font-size: 30px;
-}
-
-#address-form label {
-	font-size: 24px;
-	margin-top: 15px;
-	margin-bottom: 5px;
-}
-
-#address-form input, select {
-	font-size: 20px;
-	font-family: 'Cabin', sans-serif;
-	border: 1px solid #006CB2;
-	padding-left: 5px;
-}
-
-#search {
-	display: block;
-	margin: 10px auto 0 auto;
-	font-size: 20px;
-	border: 1px solid #006CB2;
-}*/
-
 
