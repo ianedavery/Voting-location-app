@@ -40,7 +40,7 @@ h1 {
   box-shadow:         4px 5px 1px 7px rgba(0, 0, 0, 0.4);
 }
 
-legend {
+#form-legend {
 	text-align: center;
 	padding: 25px 0 45px 0;
 	font-size: 55px;

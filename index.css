@@ -1,13 +1,48 @@
 body {
 	font-family: 'Cabin', sans-serif;
 	background-image: url('https://s-media-cache-ak0.pinimg.com/originals/ea/80/26/ea802617b2d44fa67988c4b39b903664.jpg');
-	background-position: center;
+	/*background-position: center;*/
 }
 
-h1 {
+#nav-bar {
+	position: fixed;
+	right: 0;
+	left: 0;
+	background-color: white;
+	height: 50px;
+	font-size: 30px;
+	transition: top 1s;
+	padding-left: 20px;
+	padding-top: 1px;
+	border-bottom: 1px solid black;
+	z-index: 999;
+}
+
+.up {
+	top: -50px;
+}
+
+.down {
+	top: 0;
+}
+
+#nav-banner {
 	text-align: center;
 	font-size: 45px;
 	margin: 40px 0 25px 0;
+}
+
+#go-back {
+	border: none;
+    outline: none;
+    position: absolute;
+    font-size: 25px;
+    text-align: center;
+    top: 7px;
+    right: 20px;
+    height: 35px;
+    width: 75px;
+
 }
 
 #address-form {
@@ -15,15 +50,14 @@ h1 {
 	border: 1px solid #006CB2;
 	margin-right: auto;
 	margin-left: auto;
-	border-radius: 5%;
 	width: 80%;
 	max-width: 500px;
 }
 
 .shadow {
-  -webkit-box-shadow: 5px 6px 1px 7px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow:    5px 6px 1px 7px rgba(0, 0, 0, 0.4);
-  box-shadow:         5px 6px 1px 7px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 10px 10px 1px 7px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow:    10px 10px 1px 7px rgba(0, 0, 0, 0.4);
+  box-shadow:         10px 10px 1px 7px rgba(0, 0, 0, 0.4);
 }
 
 #form-legend {
@@ -57,9 +91,37 @@ h1 {
 	border: 1px solid #006CB2;
 }
 
+#representatives-list {
+	background-color: #FF0200;
+	margin: 0 20px 0 20px;
+}
+
+.tab {
+	overflow: hidden;
+    margin: 35px 35px 0 35px;
+}
+
+div.tab button {
+	float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.tab button:hover {
+    background-color: #FF0200;
+}
+
+.active {
+    background-color: #FF0200;
+}
+
 #map {
-	height: 400px;
-	width: 800px;
+	height: 450px;
+	width: 100%;
+	margin: 0 35px 0 35px;
 }
 
 .hidden {
@@ -68,12 +130,12 @@ h1 {
 
 .hide-map {
 	position: relative;
-	left: -999px;
+	left: -9999px;
 }
 
 #representatives-list {
 	position: relative;
-	top: -400px;
+	top: -450px;
 }
 
 .officials-containers {

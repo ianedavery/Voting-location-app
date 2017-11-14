@@ -50,9 +50,12 @@ function handleSearchAnotherAddressClicks() {
 		representativeResults = undefined;
 		address = undefined;
 		renderSearchForm();
-		$('#representatives').addClass('hidden');
+		$('#representatives').addClass('hidden', 'active');
+		$('#polling-sites').removeClass('active');
 		$('#polling-sites').addClass('hidden');
 		$('#representatives-list').empty();
+		$('#nav-bar').addClass('up')
+		$('#nav-bar').removeClass('down')
 	});
 }
 
@@ -65,7 +68,7 @@ function initMap() {
 	console.log(formattedAddress);
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng[0],
-		zoom: 12
+		zoom: 14
 	});
 	let marker;
 	let infowindow = new google.maps.InfoWindow({});
@@ -90,8 +93,9 @@ function displayRepresentativeResults(data) {
 		for(let i=0; i<myArray.length; i++){
 			arrayIndex = myArray[i];
 			representativeResults = `
-				<div class='officials-containers'>
+				<div class='officials-containers col-xs-12 col-sm-12 col-md-4 col-lg-3'>
 					<h2>${officesArray}</h2>
+						<img src='${data.officials[arrayIndex].photoUrl}' height='100'></img>
 						<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
 				</div>
 			`;
@@ -158,7 +162,25 @@ function renderSearchOptions() {
 	$('#go-back').removeClass('hidden');
 	$('#representatives').removeClass('hidden');
 	$('#polling-sites').removeClass('hidden');
-	$('#representatives-list').addClass('hidden');
+	$('#representatives-list').removeClass('hidden');
+	$('#representatives').addClass('active');
+	$('#polling-sites').removeClass('active');
+	$('#nav-bar').addClass('down');
+	$('#nav-banner').empty();
+}
+
+function handleRepresentativeTabClicks() {
+	$('#representatives').on('click', event => {
+		$('#representatives').addClass('active');
+		$('#polling-sites').removeClass('active');
+	});
+}
+
+function handlePollingSitesTabClicks() {
+	$('#polling-sites').on('click', event => {
+		$('#polling-sites').addClass('active');
+		$('#representatives').removeClass('active');
+	});
 }
 
 function watchSubmit() {
@@ -186,3 +208,5 @@ $(watchSubmit);
 $(handleSearchAnotherAddressClicks);
 $(handleViewPollingLocationClicks);
 $(handleYourRepresentativesClicks);
+$(handleRepresentativeTabClicks);
+$(handlePollingSitesTabClicks);
