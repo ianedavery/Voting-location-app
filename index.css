@@ -41,7 +41,7 @@ body {
     top: 7px;
     right: 20px;
     height: 35px;
-    width: 75px;
+    width: 80px;
 
 }
 
@@ -92,7 +92,7 @@ body {
 }
 
 #representatives-list {
-	background-color: #FF0200;
+	background-color: #1483CC;
 	margin: 0 20px 0 20px;
 }
 
@@ -111,11 +111,11 @@ div.tab button {
 }
 
 .tab button:hover {
-    background-color: #FF0200;
+    background-color: #14FFCC;
 }
 
 .active {
-    background-color: #FF0200;
+    background-color: #1483CC;
 }
 
 #map {

@@ -56,6 +56,7 @@ function handleSearchAnotherAddressClicks() {
 		$('#representatives-list').empty();
 		$('#nav-bar').addClass('up')
 		$('#nav-bar').removeClass('down')
+		$('#nav-banner-container').prepend(`<h1 role='banner' id='nav-banner'>Get Involved</h1>`);
 	});
 }
 
