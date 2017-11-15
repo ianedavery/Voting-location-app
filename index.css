@@ -138,7 +138,7 @@ div.tab button {
 	top: -450px;
 }
 
-#no-election-results-container {
+#no-election-results-container, #no-representative-results-container {
 	position: relative;
 	top: -390px;
 	background-color: #1483CC;
@@ -148,7 +148,7 @@ div.tab button {
 	margin: 0 auto 0 auto;
 }
 
-#no-election-results-container:before {
+#no-election-results-container:before, #no-representative-results-container:before {
     z-index: -1;
     position: absolute;
     content: "";
@@ -156,7 +156,7 @@ div.tab button {
     left: 10px;
     width: 50%;
     top: 80%;
-    max-width:300px;
+    max-width: 300px;
     background: #777;
     -webkit-box-shadow: 0 17px 10px #777;
     -moz-box-shadow: 0 17px 10px #777;
@@ -168,8 +168,8 @@ div.tab button {
     transform: rotate(-3deg);
 }
 
-#no-election-results-container p {
-	font-size: 29px;
+#no-election-results-container p, #no-representative-results-container p {
+	font-size: 25px;
 	text-align: center;
 	padding: 20px;
 }

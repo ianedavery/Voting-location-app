@@ -50,6 +50,7 @@ function handleSearchAnotherAddressClicks() {
 		representativeResults = undefined;
 		address = undefined;
 		renderSearchForm();
+		$('#no-representative-results-container').addClass('hidden');
 		$('#representatives').addClass('hidden', 'active');
 		$('#polling-sites').removeClass('active');
 		$('#polling-sites').addClass('hidden');
@@ -157,14 +158,42 @@ function handleYourRepresentativesClicks() {
 }
 
 function handleViewPollingLocationClicks() {
+
 	$('#polling-sites').on('click', event => {
-		if(myLatLng == undefined){
+		$('#no-representative-results-container').addClass('hidden');
+		if(myLatLng == undefined) {
 			$('#representatives-list').addClass('hidden');
 			$('#no-election-results-container').removeClass('hidden');
+			$('#no-representative-results-container').addClass('hidden');
 		}
 		else {
 			renderMap();
 		}
+	});
+}
+
+function handlePollingSitesTabClicks() {
+	$('#polling-sites').on('click', event => {
+		$('#polling-sites').addClass('active');
+		$('#representatives').removeClass('active');
+	});
+}
+
+function handleRepError() {
+	if(representativeResults == undefined) {
+		$('#no-representative-results-container').removeClass('hidden');
+	}
+	else {
+		$('#no-representative-results-container').addClass('hidden');
+	}
+}
+
+function handleRepresentativeTabClicks() {
+	$('#representatives').on('click', event => {
+		$('#representatives').addClass('active');
+		$('#polling-sites').removeClass('active');
+		handleRepError();
+		$('#no-election-results-container').addClass('hidden');
 	});
 }
 
@@ -176,24 +205,19 @@ function renderSearchOptions() {
 	$('#polling-sites').removeClass('hidden');
 	$('#representatives-list').removeClass('hidden');
 	$('#representatives').addClass('active');
+	setTimeout(function() {
+		if(representativeResults == undefined) {
+			$('#no-representative-results-container').removeClass('hidden');
+		}
+		else {
+			$('#no-representative-results-container').addClass('hidden');
+		}
+	}, 500);
 	$('#polling-sites').removeClass('active');
 	$('#nav-bar').addClass('down');
 	$('#nav-banner').empty();
 }
 
-function handleRepresentativeTabClicks() {
-	$('#representatives').on('click', event => {
-		$('#representatives').addClass('active');
-		$('#polling-sites').removeClass('active');
-	});
-}
-
-function handlePollingSitesTabClicks() {
-	$('#polling-sites').on('click', event => {
-		$('#polling-sites').addClass('active');
-		$('#representatives').removeClass('active');
-	});
-}
 
 function watchSubmit() {
 	$('#address-form').submit(event => {
