@@ -147,7 +147,8 @@ function handleYourRepresentativesClicks() {
 	console.log(representativeResults);
 	$('#representatives').on('click', event => {
 		if(representativeResults == undefined) {
-			alert('Sorry. I don\'t have any information based on the addressed you entered.');
+			$('#map').addClass('hide-map');
+			$('#no-election-results-container').addClass('hidden');
 		}
 		else {
 			renderRepresentativesList();
