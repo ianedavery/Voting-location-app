@@ -4,7 +4,6 @@
 	<title>Where do I Vote?</title>
 	<meta charset='utf-8' content='Find out where you can vote' name='description'>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!--<link rel="stylesheet" type="text/css" href="styles.css">-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="index.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700" rel="stylesheet">
@@ -29,12 +28,12 @@
 							
 							<div class="form-group">
 								<label for='street-address'>Street Address</label>
-								<input class='form-control' type='text' name='street-address' placeholder='1600 Pennsylvania Ave' id='street-address'>
+								<input class='form-control' type='text' name='street-address' placeholder='1600 Pennsylvania Ave' id='street-address' required>
 							</div>
 							
 							<div class="form-group">
 								<label for='city'>City</label>
-								<input class='form-control' type='text' name='city' placeholder='Washington DC' id='city'>
+								<input class='form-control' type='text' name='city' placeholder='Washington DC' id='city' required>
 							</div>
 
 							<div class="form-group">
@@ -113,7 +112,8 @@
 		</div>
 
 		<div class='container-fluid'>
-			<div class='row justify-content-center hidden' id='representatives-list'></div>
+			<div class='row justify-content-center hidden' id='representatives-list'>
+			</div>
 		</div>
 
 		<div class='container-fluid'>
