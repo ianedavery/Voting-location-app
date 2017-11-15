@@ -97,9 +97,15 @@ function displayRepresentativeResults(data) {
 			arrayIndex = myArray[i];
 			representativeResults = `
 				<div class='officials-containers col-xs-12 col-sm-12 col-md-4 col-lg-3'>
-					<h2>${officesArray}</h2>
-						<img src='${data.officials[arrayIndex].photoUrl}' height='100'></img>
-						<p>${data.officials[arrayIndex].name}</br>${data.officials[arrayIndex].party}</p>
+						<div class='default-photo-container'>
+
+						<div class='photo-container'>
+							<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo'></img>
+						</div>
+						</div>
+					<h2 class='office-title'>${officesArray}</h2>
+						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
+						<p class='officials-party'>${data.officials[arrayIndex].party}</p>
 				</div>
 			`;
 			$('#representatives-list').append(representativeResults);

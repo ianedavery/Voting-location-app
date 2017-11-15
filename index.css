@@ -176,6 +176,39 @@ div.tab button {
 
 .officials-containers {
 	border: 1px solid black;
-	background: aqua;
+	background: rgb(221, 221, 221);
 	margin: 20px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.default-photo-container {
+	background-image: url('https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg');
+	background-position: center;
+}
+
+.photo-container {
+	height: 300px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.photo {
+	height: auto;
+	width: 100%;
+	font-size: 0;
+}
+
+.office-title, .officials-name, .officials-party {
+	margin: 0;
+}
+
+.office-title {
+	font-size: 24px;
+	padding: 6px;
+}
+
+.officials-name, .officials-party {
+	font-size: 18px;
+	padding: 0 6px 0 6px; 
 }
