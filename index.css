@@ -111,7 +111,7 @@ div.tab button {
 }
 
 .tab button:hover {
-    background-color: #14FFCC;
+    background-color: #828B90;
 }
 
 .active {
@@ -136,6 +136,42 @@ div.tab button {
 #representatives-list {
 	position: relative;
 	top: -450px;
+}
+
+#no-election-results-container {
+	position: relative;
+	top: -390px;
+	background-color: #1483CC;
+	margin: 0 35px 0 35px;
+	height: 300px;
+	width: 300px;
+	margin: 0 auto 0 auto;
+}
+
+#no-election-results-container:before {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    top: 80%;
+    max-width:300px;
+    background: #777;
+    -webkit-box-shadow: 0 17px 10px #777;
+    -moz-box-shadow: 0 17px 10px #777;
+    box-shadow: 0 17px 10px #777;
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    -o-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+}
+
+#no-election-results-container p {
+	font-size: 29px;
+	text-align: center;
+	padding: 20px;
 }
 
 .officials-containers {

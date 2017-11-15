@@ -54,9 +54,11 @@ function handleSearchAnotherAddressClicks() {
 		$('#polling-sites').removeClass('active');
 		$('#polling-sites').addClass('hidden');
 		$('#representatives-list').empty();
+		$('#no-election-results-container').addClass('hidden');
 		$('#nav-bar').addClass('up')
 		$('#nav-bar').removeClass('down')
 		$('#nav-banner-container').prepend(`<h1 role='banner' id='nav-banner'>Get Involved</h1>`);
+		$('html, body').animate({ scrollTop: 0 }, 'fast');
 	});
 }
 
@@ -149,7 +151,8 @@ function handleYourRepresentativesClicks() {
 function handleViewPollingLocationClicks() {
 	$('#polling-sites').on('click', event => {
 		if(myLatLng == undefined){
-			alert('Sorry. I currently don\'t have any information on elections in your area.');
+			$('#representatives-list').addClass('hidden');
+			$('#no-election-results-container').removeClass('hidden');
 		}
 		else {
 			renderMap();
