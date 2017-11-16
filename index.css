@@ -1,7 +1,26 @@
+body:before {
+	content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    display: block;
+    background-image: url('https://timedotcom.files.wordpress.com/2017/05/gettyimages-138711450.jpg');
+    background-position: center;
+    width: 1400px;
+    height: 800px;
+    filter: opacity(.2) grayscale(1);
+}
+
 body {
 	font-family: 'Cabin', sans-serif;
-	background-image: url('https://s-media-cache-ak0.pinimg.com/originals/ea/80/26/ea802617b2d44fa67988c4b39b903664.jpg');
-	/*background-position: center;*/
+	background-color: black;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #nav-bar {
@@ -27,6 +46,7 @@ body {
 }
 
 #nav-banner {
+	color: white;
 	text-align: center;
 	font-size: 45px;
 	margin: 40px 0 25px 0;
@@ -81,8 +101,45 @@ body {
 	font-size: 22px;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #1483CC inset;
+}
+
+#address-form input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #424242;
+   opacity:  1;
+}
+
+#address-form input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #424242;
+   opacity:  1;
+}
+
+#address-form input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #424242;
+}
+
+#address-form input::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #424242;
+}
+
+#address-form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #424242;
+}
+
 #address-form input, #state {
 	font-size: 18px;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid black;
+	border-radius: 0;
+}
+
+select {
+	-webkit-appearance: none; 
+   -moz-appearance: none;
+   appearance: none;
+   background-image: url('');
 }
 
 #search {
