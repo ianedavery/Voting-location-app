@@ -106,7 +106,7 @@ function displayRepresentativeResults(data) {
 					<h2 class='office-title'>${officesArray}</h2>
 						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
 						<p class='officials-party'>${data.officials[arrayIndex].party}</p>
-						<p class='officials-contact'>Contact: Phone: ${data.officials[arrayIndex].phones} | <a href='${data.officials[arrayIndex].urls}' target='_blank'>Website</a></p>
+						<p class='officials-contact'>Contact: Phone: <a href='tel:+1${data.officials[arrayIndex].phones}'>${data.officials[arrayIndex].phones}</a> | <a href='${data.officials[arrayIndex].urls}' target='_blank'>Website</a></p>
 				</div>
 			`;
 			$('#representatives-list').append(representativeResults);
