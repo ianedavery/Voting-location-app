@@ -12,6 +12,7 @@ The user enters their address and the app returns a list of their elected offici
 
 If there is an election coming up, the user will also be able to view a Google map showing their designated polling location.
 
-Technologies used in the making of this app:
+Technical:
 
-HTML/CSS/JavaScript/jQuery
+* This app was built using HTML, CSS, JavaScript, and jQuery.
+* The following APIs are utitlized in this app: Google Civic Information, Google Maps Javascript API, and Google Maps Geocoding   API.
