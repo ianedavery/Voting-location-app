@@ -10,7 +10,7 @@ body:before {
     background-position: center;
     width: 1400px;
     height: 800px;
-    filter: opacity(.1) grayscale(1);
+    filter: opacity(.3);
 }
 
 body {
@@ -53,10 +53,11 @@ body {
 }
 
 #go-back {
+	background-color: #1483CC;
 	border: none;
     outline: none;
     position: absolute;
-    font-size: 25px;
+    font-size: 24px;
     text-align: center;
     top: 7px;
     right: 20px;
@@ -75,9 +76,9 @@ body {
 }
 
 .shadow {
-  -webkit-box-shadow: 10px 10px 1px 7px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow:    10px 10px 1px 7px rgba(0, 0, 0, 0.4);
-  box-shadow:         10px 10px 1px 7px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 10px 10px 1px 7px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:    10px 10px 1px 7px rgba(0, 0, 0, 0.5);
+  box-shadow:         10px 10px 1px 7px rgba(0, 0, 0, 0.5);
 }
 
 #form-legend {
@@ -106,25 +107,25 @@ input:-webkit-autofill {
 }
 
 #address-form input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #424242;
+   color:    #3f3f3f;
    opacity:  1;
 }
 
 #address-form input::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #424242;
+   color:    #3f3f3f;
    opacity:  1;
 }
 
 #address-form input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    #424242;
+   color:    #3f3f3f;
 }
 
 #address-form input::-ms-input-placeholder { /* Microsoft Edge */
-   color:    #424242;
+   color:    #3f3f3f;
 }
 
 #address-form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #424242;
+  color: #3f3f3f;
 }
 
 #address-form input, #state {
@@ -202,7 +203,7 @@ div.tab button {
 	margin: 0 auto 0 auto;
 }
 
-#no-election-results-container:before, #no-representative-results-container:before {
+/*#no-election-results-container:before, #no-representative-results-container:before {
     z-index: -1;
     position: absolute;
     content: "";
@@ -220,7 +221,7 @@ div.tab button {
     -o-transform: rotate(-3deg);
     -ms-transform: rotate(-3deg);
     transform: rotate(-3deg);
-}
+}*/
 
 #no-election-results-container p, #no-representative-results-container p {
 	font-size: 25px;
