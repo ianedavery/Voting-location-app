@@ -10,7 +10,7 @@ body:before {
     background-position: center;
     width: 1400px;
     height: 800px;
-    filter: opacity(.2) grayscale(1);
+    filter: opacity(.1) grayscale(1);
 }
 
 body {
@@ -67,11 +67,11 @@ body {
 
 #address-form {
 	background-color: #1483CC;
-	border: 1px solid #006CB2;
 	margin-right: auto;
 	margin-left: auto;
 	width: 80%;
 	max-width: 500px;
+	padding-bottom: 10px;
 }
 
 .shadow {
@@ -144,8 +144,9 @@ select {
 
 #search {
 	display: block;
+	border-radius: 0;
 	margin: 10px auto 20px auto;
-	border: 1px solid #006CB2;
+	background-color: #0B54E3;
 }
 
 #representatives-list {
@@ -163,13 +164,9 @@ div.tab button {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 14px 5px;
     transition: 0.3s;
 }
-
-/*.tab button:hover {
-    background-color: #828B90;
-}*/
 
 .active {
     background-color: #1483CC;
@@ -245,16 +242,17 @@ div.tab button {
 }
 
 .photo-container {
-	height: 300px;
-	width: 100%;
+	height: auto;
 	overflow: hidden;
 }
 
-.photo {
+.photo, .default-image {
 	height: auto;
 	width: 100%;
 	font-size: 0;
 }
+
+
 
 .office-title, .officials-name, .officials-party {
 	margin: 0;

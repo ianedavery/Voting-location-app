@@ -98,12 +98,11 @@ function displayRepresentativeResults(data) {
 			arrayIndex = myArray[i];
 			representativeResults = `
 				<div class='officials-containers col-xs-12 col-sm-12 col-md-4 col-lg-3'>
-						<div class='default-photo-container'>
-
-						<div class='photo-container'>
-							<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo'></img>
-						</div>
-						</div>
+						
+							<div class='photo-container'>
+								<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo' onerror="this.onerror=null;this.src='https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg';"></img>
+							</div>
+						
 					<h2 class='office-title'>${officesArray}</h2>
 						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
 						<p class='officials-party'>${data.officials[arrayIndex].party}</p>
