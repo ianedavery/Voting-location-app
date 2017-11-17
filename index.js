@@ -35,34 +35,36 @@ function getDataFromCivicRepresentativeApi(searchTerm, callback) {
 	$.getJSON(REPRESENTATIVES_SEARCH_URL, query, callback);
 }	
 
-function renderSearchForm() {
-	$('#go-back').addClass('hidden');
+function renderHomeScreen() {
 	$('#map').addClass('hide-map');
 	$('#address-form').removeClass('hidden');
 }
 
-function handleSearchAnotherAddressClicks() {
-	$('#go-back').on('click', event => {
+//clears global variables and renders address form
+function handleHomeButtonClicks() {
+	$('#home-button').on('click', event => {
 		coordinatesArray = [];
 		longAddressArray = [];
 		formattedAddressArray = [];
 		myLatLng = undefined;
 		representativeResults = undefined;
 		address = undefined;
-		renderSearchForm();
+		renderHomeScreen();
 		$('#no-representative-results-container').addClass('hidden');
-		$('#representatives').addClass('hidden', 'active');
-		$('#polling-sites').removeClass('active');
-		$('#polling-sites').addClass('hidden');
+		$('#representatives-tab').addClass('hidden', 'active');
+		$('#polling-sites-tab').removeClass('active');
+		$('#polling-sites-tab').addClass('hidden');
 		$('#representatives-list').empty();
 		$('#no-election-results-container').addClass('hidden');
 		$('#nav-bar').addClass('up')
 		$('#nav-bar').removeClass('down')
-		$('#nav-banner-container').prepend(`<h1 role='banner' id='nav-banner'>Get Involved</h1>`);
+		$('#banner-container').prepend(`<h1 role='banner' id='banner'>Get Involved</h1>`);
 		$('html, body').animate({ scrollTop: 0 }, 'fast');
 	});
 }
 
+
+//initiates the Google map
 function initMap() {
 	myLatLng = coordinatesArray;
 	console.log(coordinatesArray);
@@ -90,6 +92,7 @@ function initMap() {
 	}
 }
 
+//loops through representative results and adds html to diplay the results
 function displayRepresentativeResults(data) {
 	for(let i=0; i<data.offices.length; i++){
 		let officesArray = data.offices[i].name;
@@ -98,11 +101,9 @@ function displayRepresentativeResults(data) {
 			arrayIndex = myArray[i];
 			representativeResults = `
 				<div class='officials-containers col-xs-12 col-sm-12 col-md-4 col-lg-3'>
-						
-							<div class='photo-container'>
-								<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo' onerror="this.onerror=null;this.src='https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg';"></img>
-							</div>
-						
+					<div class='photo-container'>
+						<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo' onerror="this.onerror=null;this.src='https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg';"></img>
+					</div>	
 					<h2 class='office-title'>${officesArray}</h2>
 						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
 						<p class='officials-party'>${data.officials[arrayIndex].party}</p>
@@ -114,23 +115,29 @@ function displayRepresentativeResults(data) {
 	}
 }
 
+function displayCoordinateResults(data) {
+	//sets the global coordinateArray to coordinates for polling locations based on user's address
+	coordinatesArray.push({lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng});
+	//set the global longAddressArray to addresses for polling location that will be displayed to the user when they select the marker on the Google map
+	longAddressArray.push(data.results[0].address_components[0].long_name + '\ ' + data.results[0].address_components[1].short_name);
+	//set the global formattedAddressArray to addresses for polling location used to link to the Google Maps app
+	formattedAddressArray.push(data.results[0].formatted_address);
+	initMap();
+}
+
+
 function displayGoogleVoterInfoResults(data) {
 	console.log('displayGoogleVoterInfoResults ran');
+	//creates an array out of polling location returned by the Google Civic Information API
 	let pollingLocations = data.pollingLocations;
 	let pollingLocationsArray = [];
 	for(let i = 0; i < pollingLocations.length; i++) {
 		pollingLocationsArray.push(data.pollingLocations[i].address.line1 + '\ ' + data.pollingLocations[i].address.city + '\ ' + data.pollingLocations[i].address.state + '\ ' + data.pollingLocations[i].address.zip);
 	}
+	//feeds the pollingLocationArray through the Google Geolcoding API to return coordinates required for the Google Maps Javascript API
 	pollingLocationsArray.map(item => {
 		getDataFromGeocodingApi(item, displayCoordinateResults);
 	});
-}
-
-function displayCoordinateResults(data) {
-	coordinatesArray.push({lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng});
-	longAddressArray.push(data.results[0].address_components[0].long_name + '\ ' + data.results[0].address_components[1].short_name);
-	formattedAddressArray.push(data.results[0].formatted_address);
-	initMap();
 }
 
 function renderMap() {
@@ -138,27 +145,9 @@ function renderMap() {
 	$('#representatives-list').addClass('hidden');
 }
 
-function renderRepresentativesList() {
-		$('#representatives-list').removeClass('hidden');
-		$('#map').addClass('hide-map');
-}
-
-function handleYourRepresentativesClicks() {
-	console.log(representativeResults);
-	$('#representatives').on('click', event => {
-		if(representativeResults == undefined) {
-			$('#map').addClass('hide-map');
-			$('#no-election-results-container').addClass('hidden');
-		}
-		else {
-			renderRepresentativesList();
-		}	
-	});
-}
-
-function handleViewPollingLocationClicks() {
-
-	$('#polling-sites').on('click', event => {
+//when the 'polling sites' tab is clicked, show the Google map will polling location, or show the error message if no results were returned by the Google Civic Information API
+function handlePollingSitesTabClicks() {
+	$('#polling-sites-tab').on('click', event => {
 		$('#no-representative-results-container').addClass('hidden');
 		if(myLatLng == undefined) {
 			$('#representatives-list').addClass('hidden');
@@ -168,16 +157,14 @@ function handleViewPollingLocationClicks() {
 		else {
 			renderMap();
 		}
+		$('#polling-sites-tab').on('click', event => {
+			$('#polling-sites-tab').addClass('active');
+			$('#representatives-tab').removeClass('active');
+		});
 	});
 }
 
-function handlePollingSitesTabClicks() {
-	$('#polling-sites').on('click', event => {
-		$('#polling-sites').addClass('active');
-		$('#representatives').removeClass('active');
-	});
-}
-
+//If the address entered does not return any results for elected officials, this function will reveal the 'no representatives found' error message
 function handleRepError() {
 	if(representativeResults == undefined) {
 		$('#no-representative-results-container').removeClass('hidden');
@@ -187,23 +174,38 @@ function handleRepError() {
 	}
 }
 
+function renderRepresentativesList() {
+		$('#representatives-list').removeClass('hidden');
+		$('#map').addClass('hide-map');
+}
+
 function handleRepresentativeTabClicks() {
-	$('#representatives').on('click', event => {
-		$('#representatives').addClass('active');
-		$('#polling-sites').removeClass('active');
+	$('#representatives-tab').on('click', event => {
+		//when the user submits their address show their list of reps, or show the error if there are no results
+		if(representativeResults == undefined) {
+			$('#map').addClass('hide-map');
+			$('#no-election-results-container').addClass('hidden');
+		}
+		else {
+			renderRepresentativesList();
+		}
+		//when the 'representative' tab is clicked it will become 'active' and the 'polling sites' tab will deactivate. The 'handleRepError' function will be ran
+		$('#representatives-tab').addClass('active');
+		$('#polling-sites-tab').removeClass('active');
 		handleRepError();
 		$('#no-election-results-container').addClass('hidden');
 	});
 }
 
-function renderSearchOptions() {
+
+//render the second screen showing the 'representatives' and 'polling sites' tab, and the list of elected officials. This function also handles the rendering of the navigation bar.
+function renderResultsScreen() {
 	console.log('rendering search options');
 	$('#address-form').addClass("hidden");
-	$('#go-back').removeClass('hidden');
-	$('#representatives').removeClass('hidden');
-	$('#polling-sites').removeClass('hidden');
+	$('#representatives-tab').removeClass('hidden').addClass('active');
+	$('#polling-sites-tab').removeClass('hidden').removeClass('active');
 	$('#representatives-list').removeClass('hidden');
-	$('#representatives').addClass('active');
+	//if the Google Civic Information API returns results, show the container where the results will be listed, if not, keep the container hidden
 	setTimeout(function() {
 		if(representativeResults == undefined) {
 			$('#no-representative-results-container').removeClass('hidden');
@@ -212,17 +214,16 @@ function renderSearchOptions() {
 			$('#no-representative-results-container').addClass('hidden');
 		}
 	}, 600);
-	$('#polling-sites').removeClass('active');
 	$('#nav-bar').addClass('down');
-	$('#nav-banner').empty();
+	$('#banner').empty();
 }
-
-
+ 
 function watchSubmit() {
 	$('#address-form').submit(event => {
 		event.preventDefault();
 		console.log('enter button clicked');
 		let streetAddressTarget = $(event.currentTarget).find('#street-address');
+		//watch for address submissions and set the global 'address' variable to the value entered by the user.
 		let streetAddress = streetAddressTarget.val();
 		let cityTarget = $(event.currentTarget).find('#city');
 		let city = cityTarget.val();
@@ -230,18 +231,19 @@ function watchSubmit() {
 		let state = stateTarget.val();
 		address = streetAddress + '\ ' + city + '\ ' + state;
 		console.log(address);
+		//clear out the address form
 		streetAddressTarget.val('');
 		cityTarget.val('');
 		stateTarget.val('');
+		//call the Google Civic Information API to get polling locations based on the 'address' variables value
 		getDataFromCivicApi(address, displayGoogleVoterInfoResults);
+		//call the Google Civic Information API to get elected officials list based on the 'address' variables value
 		getDataFromCivicRepresentativeApi(address, displayRepresentativeResults);
-		renderSearchOptions();
+		renderResultsScreen();
 	});
 }
 
 $(watchSubmit);
-$(handleSearchAnotherAddressClicks);
-$(handleViewPollingLocationClicks);
-$(handleYourRepresentativesClicks);
-$(handleRepresentativeTabClicks);
+$(handleHomeButtonClicks);
 $(handlePollingSitesTabClicks);
+$(handleRepresentativeTabClicks);
