@@ -15,4 +15,4 @@ If there is an election coming up, the user will also be able to view a Google m
 Technical:
 
 * This app was built using HTML, CSS, JavaScript, and jQuery.
-* The following APIs are utitlized in this app: Google Civic Information, Google Maps Javascript API, and Google Maps Geocoding   API.
+* The following APIs are utitlized in this app: Google Civic Information API, Google Maps Javascript API, and Google Maps Geocoding   API.
