@@ -18,7 +18,6 @@ function getDataFromGeocodingApi(searchTerm, callback) {
 }
 
 function getDataFromCivicApi(searchTerm, callback) {
-	console.log('Civic API query performed');
 	const query = {
 		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U',
 		address: `${searchTerm}`
@@ -27,7 +26,6 @@ function getDataFromCivicApi(searchTerm, callback) {
 }
 
 function getDataFromCivicRepresentativeApi(searchTerm, callback) {
-	console.log('Civic API query performed');
 	const query = {
 		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U',
 		address: `${searchTerm}`
@@ -67,11 +65,8 @@ function handleHomeButtonClicks() {
 //initiates the Google map
 function initMap() {
 	myLatLng = coordinatesArray;
-	console.log(coordinatesArray);
 	let longAddress = longAddressArray;
-	console.log(longAddress);
 	let formattedAddress = formattedAddressArray;
-	console.log(formattedAddress);
 	let map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng[0],
 		zoom: 14
@@ -99,10 +94,11 @@ function displayRepresentativeResults(data) {
 		let myArray = data.offices[i].officialIndices;
 		for(let i=0; i<myArray.length; i++){
 			arrayIndex = myArray[i];
+			let repPic = data.officials[arrayIndex].photoUrl || '#';
 			representativeResults = `
 				<div class='officials-containers col-xs-12 col-sm-12 col-md-4 col-lg-3'>
 					<div class='photo-container'>
-						<img src='${data.officials[arrayIndex].photoUrl}' alt="Politician's headshot" class='photo' onerror="this.onerror=null;this.src='https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg';"></img>
+						<img src='${repPic}' alt="Politician's headshot" class='photo' onerror="this.onerror=null;this.src='https://d2ytqrx2swf6ug.cloudfront.net/assets/no-image-available-bbdbbe501d2b08a157a21431bc7b49df2c6cf6d892cc3083114229876cd7d6f4.jpg';"></img>
 					</div>	
 					<h2 class='office-title'>${officesArray}</h2>
 						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
@@ -200,7 +196,6 @@ function handleRepresentativeTabClicks() {
 
 //render the second screen showing the 'representatives' and 'polling sites' tab, and the list of elected officials. This function also handles the rendering of the navigation bar.
 function renderResultsScreen() {
-	console.log('rendering search options');
 	$('#address-form').addClass("hidden");
 	$('#representatives-tab').removeClass('hidden').addClass('active');
 	$('#polling-sites-tab').removeClass('hidden').removeClass('active');
@@ -221,7 +216,6 @@ function renderResultsScreen() {
 function watchSubmit() {
 	$('#address-form').submit(event => {
 		event.preventDefault();
-		console.log('enter button clicked');
 		let streetAddressTarget = $(event.currentTarget).find('#street-address');
 		//watch for address submissions and set the global 'address' variable to the value entered by the user.
 		let streetAddress = streetAddressTarget.val();
@@ -230,7 +224,6 @@ function watchSubmit() {
 		let stateTarget = $(event.currentTarget).find('#state');
 		let state = stateTarget.val();
 		address = streetAddress + '\ ' + city + '\ ' + state;
-		console.log(address);
 		//clear out the address form
 		streetAddressTarget.val('');
 		cityTarget.val('');
