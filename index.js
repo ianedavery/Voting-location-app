@@ -9,7 +9,6 @@ let representativeResults;
 let address;
 
 function getDataFromGeocodingApi(searchTerm, callback) {
-	console.log('Geocoding API queried');
 	const query = {
 		address: `${searchTerm}`,
 		key: 'AIzaSyCc83loc2gllyDhzsjFtTs7ueurzLuU_8U'
@@ -123,7 +122,6 @@ function displayCoordinateResults(data) {
 
 
 function displayGoogleVoterInfoResults(data) {
-	console.log('displayGoogleVoterInfoResults ran');
 	//creates an array out of polling location returned by the Google Civic Information API
 	let pollingLocations = data.pollingLocations;
 	let pollingLocationsArray = [];
