@@ -1,6 +1,8 @@
+//base URLs for the API that are called
 const CIVIC_SEARCH_URL = 'https://www.googleapis.com/civicinfo/v2/voterinfo';
 const REPRESENTATIVES_SEARCH_URL = 'https://www.googleapis.com/civicinfo/v2/representatives';
 const GEOCODING_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+
 let coordinatesArray = [];
 let longAddressArray = [];
 let formattedAddressArray = [];
@@ -206,7 +208,7 @@ function renderResultsScreen() {
 		else {
 			$('#no-representative-results-container').addClass('hidden');
 		}
-	}, 600);
+	}, 1000);
 	$('#nav-bar').addClass('down');
 	$('#banner').empty();
 }
