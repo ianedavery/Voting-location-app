@@ -103,7 +103,7 @@ function displayRepresentativeResults(data) {
 					</div>	
 					<h2 class='office-title'>${officesArray}</h2>
 						<p class='officials-name'>${data.officials[arrayIndex].name}</p>
-						<p class='officials-party'>${data.officials[arrayIndex].party}</p>
+						<p class='officials-party'>${data.officials[arrayIndex].party === undefined ? 'Party Info Unknown' : data.officials[arrayIndex].party}</p>
 						<p class='officials-contact'>Contact: Phone: ${data.officials[arrayIndex].phones} | <a href='${data.officials[arrayIndex].urls}' target='_blank'>Website</a></p>
 				</div>
 			`;

@@ -10,7 +10,7 @@ body:before {
     background-position: center;
     width: 1400px;
     height: 800px;
-    filter: opacity(.3);
+    filter: opacity(.5);
 }
 
 body {
